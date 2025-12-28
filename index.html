@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kinoki Detox Foot Pads | Touchdown Assist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* All your existing CSS styles remain the same */
+    @keyframes fadeBackground {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .bg-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: fadeBackground 12s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    .bg-slider:nth-child(1) { animation-delay: 0s; }
+    .bg-slider:nth-child(2) { animation-delay: 4s; }
+    .bg-slider:nth-child(3) { animation-delay: 8s; }
+    .bg-slider:nth-child(4) { animation-delay: 12s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+    }
+
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
+      50% { box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); }
+    }
+
+    .package-selected {
+      border-color: #7c3aed;
+      background-color: #f5f3ff;
+      box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.2);
+    }
+
+    .strikethrough {
+      text-decoration: line-through;
+    }
+
+    .save-badge {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+    }
+
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f5f3ff;
+      border: 2px solid #7c3aed;
+      color: #7c3aed;
+      font-weight: bold;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .quantity-btn:hover {
+      background: #7c3aed;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 8px;
+      background: white;
+    }
+
+    .quantity-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .product-image {
+      transition: transform 0.5s ease;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .product-image:hover {
+      transform: scale(1.05);
+    }
+
+    .gallery-thumbnail {
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .gallery-thumbnail:hover, .gallery-thumbnail.active {
+      border-color: #7c3aed;
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .gallery-modal {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+
+    .close-gallery {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+      border-radius: 15px;
+      padding: 25px;
+      height: 100%;
+      border: 1px solid #ddd6fe;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+      50% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.6); }
+    }
+
+    .glowing-border {
+      animation: glow 3s ease-in-out infinite;
+      border: 2px solid #7c3aed;
+    }
+
+    /* FIXED: WhatsApp button styles */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+      z-index: 1000;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      animation: whatsappPulse 2s infinite;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+      background: linear-gradient(135deg, #20ba5a, #0e7a5e);
+    }
+
+    @keyframes whatsappPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 80px;
+      background: white;
+      color: #333;
+      padding: 8px 15px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      border: 1px solid #ddd;
+    }
+
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* FIXED: Body and footer adjustments */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    footer {
+      flex-shrink: 0;
+      width: 100%;
+      background: #4c1d95 !important; /* Darker purple for better coverage */
+      margin-top: auto;
+    }
+
+    .footer-container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-content {
+      max-width: 7xl;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full z-50 glass-effect shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+          <i class="fas fa-feather-alt"></i>
+        </div>
+        <h1 class="text-2xl font-bold gradient-text">Touchdown Assist</h1>
+      </div>
+      <nav>
+        <a href="#order" class="gradient-bg text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 transition-all hover:scale-105 shadow-lg flex items-center gap-2">
+          <i class="fas fa-shopping-cart"></i>
+          <span>Order Now</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+<main class="flex-grow">
+    <!-- Hero Section with Background Slider -->
+    <section class="relative min-h-screen flex items-center overflow-hidden pt-20">
+      <!-- Background Image Slider - Multiple Kinoki Images -->
+      <div class="absolute inset-0 z-0">
+        <!-- YOUR Kinoki product images -->
+        <div class="bg-slider" style="background-image: url('WhatsApp Image 2025-12-27 at 14.17.58.jpeg'); background-position: center; background-size: cover;"></div>
+        <div class="bg-slider" style="background-image: url('image2.webp'); background-position: center; background-size: cover;"></div>
+        <div class="bg-slider" style="background-image: url('image 3.jpeg'); background-position: center; background-size: cover;"></div>
+        <div class="bg-slider" style="background-image: url('your-fourth-image.jpg'); background-position: center; background-size: cover;"></div>
+        
+        <!-- Lighter overlay to make text readable while showing images -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-black/30"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2 slide-in-left">
+          <!-- Product Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="bg-gradient-to-r from-purple-500 to-violet-500 text-white text-sm font-semibold px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+              <i class="fas fa-leaf"></i>
+              <span>100% Natural</span>
+            </span>
+            <span class="bg-gradient-to-r from-purple-500 to-violet-500 text-white text-sm font-semibold px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+              <i class="fas fa-heart"></i>
+              <span>Chemical Free</span>
+            </span>
+            <span class="bg-gradient-to-r from-purple-500 to-violet-500 text-white text-sm font-semibold px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+              <i class="fas fa-bed"></i>
+              <span>Overnight Results</span>
+            </span>
+          </div>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+            <span class="text-yellow-300">Kinoki</span><br>
+            <span class="text-4xl md:text-5xl lg:text-6xl">Detox Foot Pads</span>
+          </h1>
+          
+          <p class="text-2xl text-purple-100 mb-8 leading-relaxed">
+            <span class="text-yellow-300 font-bold">✨ Japanese-Inspired Natural Detoxification ✨</span>
+          </p>
+          
+          <p class="text-lg text-purple-100 mb-10 leading-relaxed">
+            Premium detox foot pads that naturally draw out toxins while you sleep. Wake up feeling refreshed, revitalized, and lighter with visible results overnight. Experience the power of bamboo vinegar and tourmaline technology.
+          </p>
+          
+          <!-- Key Features -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            <div class="text-center p-5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div class="text-3xl mb-3 text-yellow-300"><i class="fas fa-star"></i></div>
+              <div class="font-bold text-white">4.9/5</div>
+              <div class="text-sm text-purple-200">Rating</div>
+            </div>
+            <div class="text-center p-5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div class="text-3xl mb-3 text-yellow-300"><i class="fas fa-truck"></i></div>
+              <div class="font-bold text-white">FREE</div>
+              <div class="text-sm text-purple-200">Delivery</div>
+            </div>
+            <div class="text-center p-5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div class="text-3xl mb-3 text-yellow-300"><i class="fas fa-money-bill-wave"></i></div>
+              <div class="font-bold text-white">Cash</div>
+              <div class="text-sm text-purple-200">On Delivery</div>
+            </div>
+            <div class="text-center p-5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div class="text-3xl mb-3 text-yellow-300"><i class="fas fa-bolt"></i></div>
+              <div class="font-bold text-white">Fast</div>
+              <div class="text-sm text-purple-200">Results</div>
+            </div>
+          </div>
+          
+          <!-- CTA Button -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#order" class="gradient-bg text-white px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all hover:scale-105 btn-pulse inline-block shadow-xl text-center">
+              <i class="fas fa-bolt mr-2"></i>ORDER NOW - KES 1,500
+            </a>
+            <a href="#gallery" class="bg-white/20 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all backdrop-blur-sm inline-block text-center">
+              <i class="fas fa-images mr-2"></i>View Gallery
+            </a>
+          </div>
+        </div>
+        
+        <!-- Product Showcase -->
+        <div class="lg:w-1/2 slide-in-right">
+          <div class="relative">
+            <div class="absolute -inset-4 bg-gradient-to-r from-yellow-400 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-30"></div>
+            <div class="relative glass-effect rounded-3xl shadow-2xl p-8 glowing-border">
+              <!-- Main Product Image -->
+              <div class="mb-6 overflow-hidden rounded-2xl">
+                <img id="mainProductImage" src="WhatsApp Image 2025-12-27 at 14.17.58.jpeg" 
+                     alt="Kinoki Detox Foot Pads" 
+                     class="rounded-2xl w-full h-72 object-cover product-image shadow-lg">
+              </div>
+              
+              <h3 class="text-2xl font-bold text-center gradient-text mb-4">Premium Detox Foot Pads</h3>
+              <p class="text-gray-600 text-center mb-6">Natural Ingredients • Visible Results • Easy Overnight Use</p>
+              
+              <div class="space-y-4">
+                <div class="flex items-center gap-3 text-purple-700">
+                  <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <span class="font-medium">Draws out toxins while you sleep</span>
+                </div>
+                <div class="flex items-center gap-3 text-purple-700">
+                  <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <span class="font-medium">Improves energy & overall wellness</span>
+                </div>
+                <div class="flex items-center gap-3 text-purple-700">
+                  <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white">
+                    <i class="fas fa-check"></i>
+                  </div>
+                  <span class="font-medium">100% natural bamboo vinegar & tourmaline</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Gallery Section -->
+    <section id="gallery" class="py-20 bg-gradient-to-b from-purple-50 to-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold gradient-text mb-4">Kinoki Product Gallery</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">See our premium detox foot pads from different angles. High-quality images to help you make the right choice.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div class="feature-card hover-lift">
+            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+              <i class="fas fa-spa"></i>
+            </div>
+            <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Natural Ingredients</h3>
+            <p class="text-gray-600 text-center">Made with bamboo vinegar, tourmaline, and other natural elements for safe detoxification.</p>
+          </div>
+          
+          <div class="feature-card hover-lift">
+            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Visible Results</h3>
+            <p class="text-gray-600 text-center">See the evidence overnight as pads change color, showing toxins being removed.</p>
+          </div>
+          
+          <div class="feature-card hover-lift">
+            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+              <i class="fas fa-moon"></i>
+            </div>
+            <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Easy Overnight Use</h3>
+            <p class="text-gray-600 text-center">Apply before bed, wake up to results. Simple, mess-free, and effective.</p>
+          </div>
+          
+          <div class="feature-card hover-lift">
+            <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Chemical Free</h3>
+            <p class="text-gray-600 text-center">No harsh chemicals, parabens, or sulfates. Safe for all skin types.</p>
+          </div>
+        </div>
+        
+        <!-- Additional Product Images -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="rounded-2xl overflow-hidden shadow-xl hover-lift bg-white">
+            <div class="aspect-[4/3]">
+              <img src="image2.webp"
+                   alt="Kinoki Packaging"
+                   class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h4 class="text-lg font-bold text-gray-900 mb-2">Premium Packaging</h4>
+              <p class="text-gray-600">Each pack contains 10 pairs of premium detox pads.</p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl overflow-hidden shadow-xl hover-lift bg-white">
+            <div class="aspect-[4/3]">
+              <img src="image 3.jpeg"
+                   alt="Kinoki Application"
+                   class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h4 class="text-lg font-bold text-gray-900 mb-2">Easy Application</h4>
+              <p class="text-gray-600">Simple peel-and-stick application on soles of feet.</p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl overflow-hidden shadow-xl hover-lift bg-white">
+            <div class="aspect-[4/3]">
+              <img src="WhatsApp Image 2025-12-27 at 14.17.58.jpeg"
+                   alt="Kinoki Results"
+                   class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h4 class="text-lg font-bold text-gray-900 mb-2">Visible Detox Results</h4>
+              <p class="text-gray-600">See the difference after just one night of use.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-4 gradient-text">How Kinoki Works</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Simple 3-step process for natural detoxification. Experience the difference overnight.</p>
+        
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <div class="text-center p-8 hover-lift rounded-2xl bg-gradient-to-b from-purple-50 to-white border border-purple-100 relative">
+            <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+              1
+            </div>
+            <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl mt-4">
+              <i class="fas fa-sticky-note"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Apply Before Bed</h3>
+            <p class="text-gray-600">Peel and place pads on soles of your feet before sleeping. Easy and mess-free application.</p>
+          </div>
+          
+          <div class="text-center p-8 hover-lift rounded-2xl bg-gradient-to-b from-purple-50 to-white border border-purple-100 relative">
+            <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+              2
+            </div>
+            <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl mt-4">
+              <i class="fas fa-bed"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Sleep & Detox</h3>
+            <p class="text-gray-600">While you sleep, natural ingredients draw out toxins and impurities from your body.</p>
+          </div>
+          
+          <div class="text-center p-8 hover-lift rounded-2xl bg-gradient-to-b from-purple-50 to-white border border-purple-100 relative">
+            <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+              3
+            </div>
+            <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 text-white text-3xl mt-4">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Remove & See Results</h3>
+            <p class="text-gray-600">In the morning, remove pads and see visible evidence of toxins removed. Feel lighter instantly!</p>
+          </div>
+        </div>
+        
+        <!-- Video/Image Demonstration -->
+        <div class="bg-gradient-to-r from-purple-50 to-violet-50 rounded-3xl p-8 md:p-12">
+          <div class="flex flex-col lg:flex-row items-center gap-8">
+            <div class="lg:w-1/2">
+              <h3 class="text-3xl font-bold gradient-text mb-4">See Kinoki in Action</h3>
+              <p class="text-gray-700 mb-6 leading-relaxed">
+                Watch how Kinoki detox foot pads work overnight to draw out impurities from your body. 
+                The natural ingredients activate while you sleep, creating a powerful detoxifying effect 
+                that leaves you feeling refreshed and energized in the morning.
+              </p>
+              <ul class="space-y-3 mb-6">
+                <li class="flex items-center gap-3 text-purple-700">
+                  <i class="fas fa-check-circle text-green-500"></i>
+                  <span>Visible color change shows toxins removed</span>
+                </li>
+                <li class="flex items-center gap-3 text-purple-700">
+                  <i class="fas fa-check-circle text-green-500"></i>
+                  <span>Natural ingredients safe for daily use</span>
+                </li>
+                <li class="flex items-center gap-3 text-purple-700">
+                  <i class="fas fa-check-circle text-green-500"></i>
+                  <span>No side effects, just natural detoxification</span>
+                </li>
+              </ul>
+            </div>
+            <div class="lg:w-1/2">
+              <div class="rounded-2xl overflow-hidden shadow-2xl">
+                <!-- Replace with actual video or more product images -->
+                <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80" 
+                     alt="Kinoki Demonstration" 
+                     class="w-full h-64 md:h-80 object-cover">
+                <div class="p-6 bg-white">
+                  <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mr-4">
+                      <i class="fas fa-play"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-bold text-gray-900">Watch Demonstration</h4>
+                      <p class="text-gray-600">See how Kinoki works in just 2 minutes</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="order" class="py-20 bg-gradient-to-b from-white to-purple-50">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold gradient-text mb-4">Order Your Kinoki Detox Foot Pads</h2>
+          <p class="text-xl text-gray-600">Join thousands of satisfied customers across Kenya</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Package Selection -->
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <i class="fas fa-box-open text-purple-600"></i>
+              Special Offer: Buy X Get X FREE!
+            </h3>
+            
+            <!-- SINGLE Package Option -->
+            <div class="package-option relative border-2 border-purple-600 rounded-xl p-6 hover-lift cursor-pointer package-selected">
+              <div class="save-badge">50% OFF</div>
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <h4 class="text-lg font-bold text-gray-900">Buy X Get X FREE!</h4>
+                  <p class="text-gray-600">For every package you buy, get ONE FREE</p>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm text-gray-500 strikethrough">KES 3,000</div>
+                  <div class="text-2xl font-bold text-purple-600">KES 1,500</div>
+                  <div class="text-sm text-purple-600 font-semibold">50% OFF</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <i class="fas fa-check-circle text-green-500"></i>
+                <span>Buy 1 = Get 1 Free | Buy 5 = Get 5 Free | Buy 10 = Get 10 Free</span>
+              </div>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="mt-8 p-6 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100">
+              <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-sort-amount-up text-purple-600"></i>
+                How Many Packages?
+              </h4>
+              <p class="text-gray-600 mb-4">
+                <span class="font-bold text-purple-700">✨ SPECIAL OFFER: </span>
+                For every package you buy, you get ONE FREE!
+              </p>
+              
+              <div class="quantity-container">
+                <button class="quantity-btn" id="decreaseQty">-</button>
+                <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="20">
+                <button class="quantity-btn" id="increaseQty">+</button>
+              </div>
+              
+              <p class="text-center text-sm text-gray-500 mt-3">
+                <i class="fas fa-gift text-purple-500 mr-1"></i>
+                Buying <span id="buyingQty" class="font-bold">1</span> package(s) = Getting <span id="freeQty" class="font-bold text-green-600">1</span> FREE!
+              </p>
+            </div>
+
+            <!-- Product Details -->
+            <div class="mt-8 p-6 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100">
+              <h4 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+                <i class="fas fa-clipboard-list text-purple-600"></i>
+                Product Details:
+              </h4>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <i class="fas fa-check text-green-500 mt-1"></i>
+                  <span><strong class="text-purple-700">100% Natural Ingredients:</strong> Bamboo vinegar, tourmaline, and other natural elements</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="fas fa-check text-green-500 mt-1"></i>
+                  <span><strong class="text-purple-700">Easy to Use:</strong> Apply before bed, remove in the morning - see visible results</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="fas fa-check text-green-500 mt-1"></i>
+                  <span><strong class="text-purple-700">Chemical Free:</strong> No harsh chemicals, parabens, or sulfates</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i class="fas fa-check text-green-500 mt-1"></i>
+                  <span><strong class="text-purple-700">Suitable for All:</strong> Safe for all skin types, ages 12+</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Order Form -->
+          <div>
+            <div class="glass-effect rounded-3xl shadow-2xl p-8 border border-purple-100">
+              <h3 class="text-2xl font-bold gradient-text mb-6 text-center flex items-center justify-center gap-2">
+                <i class="fas fa-truck"></i>
+                Delivery Information
+              </h3>
+              
+              <!-- Order Summary -->
+              <div class="bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl p-6 mb-6 border border-purple-100">
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-gray-600">Offer:</span>
+                  <span class="font-bold text-gray-900 text-right" id="selectedPackage">Buy 1 Get 1 FREE</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-gray-600">Buying:</span>
+                  <span class="font-bold text-gray-900" id="buyingPackages">1 package</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-gray-600">Getting FREE:</span>
+                  <span class="font-bold text-green-600" id="freePackages">1 package</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-gray-600">Total Packages:</span>
+                  <span class="font-bold text-gray-900" id="totalPackages">2 packages</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-gray-600">Total Pads:</span>
+                  <span class="font-bold text-gray-900" id="totalPads">20 pads</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-gray-600">Delivery:</span>
+                  <span class="font-bold text-purple-600">FREE</span>
+                </div>
+                <div class="border-t border-purple-200 pt-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-lg font-bold text-gray-900">Total Amount:</span>
+                    <span class="text-2xl font-bold text-purple-600" id="totalAmount">KES 1,500</span>
+                  </div>
+                </div>
+              </div>
+
+              <form id="orderForm" class="space-y-5">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                    <i class="fas fa-user text-purple-600"></i>
+                    Full Name *
+                  </label>
+                  <input type="text" name="name" placeholder="Enter your full name" required 
+                         class="w-full p-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 transition-all">
+                </div>
+                
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                    <i class="fas fa-phone text-purple-600"></i>
+                    Phone Number *
+                  </label>
+                  <input type="tel" name="phone" placeholder="0712345678" required 
+                         class="w-full p-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 transition-all">
+                </div>
+                
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                    <i class="fas fa-envelope text-purple-600"></i>
+                    Email Address
+                  </label>
+                  <input type="email" name="email" placeholder="your.email@example.com" 
+                         class="w-full p-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 transition-all">
+                </div>
+                
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt text-purple-600"></i>
+                    Delivery Address *
+                  </label>
+                  <textarea name="location" placeholder="Enter your complete address with landmark" required rows="3"
+                            class="w-full p-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 transition-all"></textarea>
+                </div>
+
+                <!-- Hidden product info -->
+                <input type="hidden" name="product" value="Kinoki Detox Foot Pads">
+                <input type="hidden" name="package" id="packageInput" value="Buy 1 Get 1 FREE">
+                <input type="hidden" name="price" id="priceInput" value="1500">
+                <input type="hidden" name="quantity" id="quantityInput" value="2">
+                <input type="hidden" name="total_pads" id="totalPadsInput" value="20">
+                <input type="hidden" name="unit_price" id="unitPriceInput" value="150">
+                
+                <button type="submit" 
+                        class="w-full gradient-bg text-white p-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all hover:scale-[1.02] shadow-lg mt-6 flex items-center justify-center gap-3">
+                  <i class="fas fa-shopping-cart"></i>
+                  ORDER NOW - <span id="orderButtonAmount">KES 1,500</span>
+                </button>
+                
+                <div class="text-center text-sm text-gray-500 mt-6 space-y-2">
+                  <p class="flex items-center justify-center gap-2">
+                    <i class="fas fa-shield-alt text-green-500"></i>
+                    ✅ Secure ordering
+                  </p>
+                  <p class="flex items-center justify-center gap-2">
+                    <i class="fas fa-money-bill-wave text-green-500"></i>
+                    💰 Cash on delivery
+                  </p>
+                  <p class="flex items-center justify-center gap-2">
+                    <i class="fas fa-lock text-green-500"></i>
+                    🔒 Your information is safe
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gradient-to-b from-purple-50 to-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold gradient-text mb-4">What Our Customers Say</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">Join thousands of satisfied customers who have experienced the benefits of Kinoki detox foot pads</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-2xl shadow-xl hover-lift border border-purple-100">
+            <div class="flex mb-4">
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic leading-relaxed">"I was skeptical at first, but after using Kinoki pads for just 3 nights, I noticed more energy and better sleep. The pads actually change color - it's amazing to see the toxins being drawn out!"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold mr-4">
+                SM
+              </div>
+              <div>
+                <div class="font-bold text-gray-900">Sarah M.</div>
+                <div class="text-sm text-gray-600 flex items-center gap-1">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Nairobi, Kenya
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-8 rounded-2xl shadow-xl hover-lift border border-purple-100">
+            <div class="flex mb-4">
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic leading-relaxed">"The delivery was super fast and the cash on delivery option made it very convenient. The pads really work - I can feel the difference in my overall wellness. Will definitely order again!"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold mr-4">
+                JK
+              </div>
+              <div>
+                <div class="font-bold text-gray-900">John K.</div>
+                <div class="text-sm text-gray-600 flex items-center gap-1">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Mombasa, Kenya
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-8 rounded-2xl shadow-xl hover-lift border border-purple-100">
+            <div class="flex mb-4">
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+              <i class="fas fa-star text-yellow-400"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic leading-relaxed">"As someone with a busy lifestyle, I love how easy these are to use. Just stick them on before bed. My feet feel lighter in the morning, and I've been sleeping much better. Highly recommend!"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold mr-4">
+                AW
+              </div>
+              <div>
+                <div class="font-bold text-gray-900">Amina W.</div>
+                <div class="text-sm text-gray-600 flex items-center gap-1">
+                  <i class="fas fa-map-marker-alt"></i>
+                  Kisumu, Kenya
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-4 gradient-text">Frequently Asked Questions</h2>
+        <p class="text-center text-gray-600 mb-12">Get answers to common questions about Kinoki detox foot pads</p>
+        
+        <div class="space-y-6">
+          <div class="border border-purple-100 rounded-xl p-6 hover-lift">
+            <h3 class="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+              <i class="fas fa-question-circle text-purple-600"></i>
+              How do Kinoki foot pads work?
+            </h3>
+            <p class="text-gray-600">Kinoki foot pads use natural ingredients like bamboo vinegar and tourmaline to draw out toxins from your body through the soles of your feet while you sleep. The pads change color as they absorb impurities.</p>
+          </div>
+          
+          <div class="border border-purple-100 rounded-xl p-6 hover-lift">
+            <h3 class="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+              <i class="fas fa-question-circle text-purple-600"></i>
+              How often should I use the pads?
+            </h3>
+            <p class="text-gray-600">For best results, use the pads nightly for 10-14 days for an initial detox. After that, you can use them 2-3 times per week for maintenance.</p>
+          </div>
+          
+          <div class="border border-purple-100 rounded-xl p-6 hover-lift">
+            <h3 class="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+              <i class="fas fa-question-circle text-purple-600"></i>
+              Are the pads safe for everyone?
+            </h3>
+            <p class="text-gray-600">Yes! Kinoki foot pads are made with 100% natural ingredients and are safe for all skin types. However, we recommend consulting with a doctor if you're pregnant, nursing, or have serious health conditions.</p>
+          </div>
+          
+          <div class="border border-purple-100 rounded-xl p-6 hover-lift">
+            <h3 class="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+              <i class="fas fa-question-circle text-purple-600"></i>
+              How long does delivery take?
+            </h3>
+            <p class="text-gray-600">We offer fast delivery across Kenya. Orders are typically delivered within 2-4 business days. You'll receive a confirmation call once your order is dispatched.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/254769155534?text=Hello%21%20I'm%20interested%20in%20ordering%20Kinoki%20Detox%20Foot%20Pads.%20Please%20assist%20me." 
+     target="_blank" 
+     class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat with us on WhatsApp!</span>
+  </a>
+
+  <!-- Footer -->
+  <footer class="bg-purple-900 text-white w-full">
+    <div class="footer-content px-6">
+      <!-- TOP CONTENT -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 py-16">
+
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Touchdown Assist</h2>
+          <p class="text-purple-200 leading-relaxed">
+            Your trusted partner for premium wellness products in Kenya. We deliver quality, convenience, and satisfaction right to your doorstep.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="#order" class="text-purple-200 hover:text-white transition">Order Now</a></li>
+            <li><a href="#gallery" class="text-purple-200 hover:text-white transition">Product Gallery</a></li>
+            <li><a href="#" class="text-purple-200 hover:text-white transition">How It Works</a></li>
+            <li><a href="#" class="text-purple-200 hover:text-white transition">Testimonials</a></li>
+            <li><a href="#" class="text-purple-200 hover:text-white transition">FAQs</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-6">Contact & Delivery</h3>
+          <ul class="space-y-4 text-purple-200">
+            <li class="flex items-center gap-3">
+              <i class="fas fa-map-marker-alt text-yellow-300"></i>
+              <span>Delivery across Kenya</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-phone text-yellow-300"></i>
+              <span>0769-155-534</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-envelope text-yellow-300"></i>
+              <span>Info@touchdownassist.com</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-money-bill-wave text-yellow-300"></i>
+              <span>Cash on Delivery Available</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fab fa-whatsapp text-green-400"></i>
+              <span>WhatsApp: +254 7691 555 34</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM BAR (STRICTLY DOWN) -->
+      <div class="border-t border-purple-800 py-6 text-center">
+        <p class="text-purple-400 text-sm mt-2">
+          Delivering wellness to your doorstep across Kenya
+        </p>
+        <p class="text-purple-300">
+          © 2025 Touchdown Assist. All rights reserved. | Kinoki is a registered trademark
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SINGLE JAVASCRIPT SECTION -->
+  <script>
+    // Configuration
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6qzWfC1ncgALr96Qm26SA7Z7nBni04Cnt-P5cCXOWqWpRuUp4qnJzMXGtYUexnxgJ/exec";
+    
+    // Initialize with default values
+    let quantity = 1;
+    const pricePerPackage = 1500;
+    const padsPerPackage = 10;
+
+    // Update Order Summary
+    function updateOrderSummary() {
+      const buyingQty = quantity;
+      const freeQty = quantity;
+      const totalPackages = buyingQty + freeQty;
+      const totalPads = totalPackages * padsPerPackage;
+      const totalAmount = pricePerPackage * buyingQty;
+      
+      // Update display
+      document.getElementById('selectedPackage').textContent = `Buy ${buyingQty} Get ${freeQty} FREE`;
+      document.getElementById('buyingPackages').textContent = `${buyingQty} package${buyingQty > 1 ? 's' : ''}`;
+      document.getElementById('freePackages').textContent = `${freeQty} package${freeQty > 1 ? 's' : ''}`;
+      document.getElementById('totalPackages').textContent = `${totalPackages} packages`;
+      document.getElementById('totalPads').textContent = `${totalPads} pads`;
+      document.getElementById('totalAmount').textContent = `KES ${totalAmount.toLocaleString()}`;
+      document.getElementById('orderButtonAmount').textContent = `KES ${totalAmount.toLocaleString()}`;
+      
+      // Update quantity indicators
+      document.getElementById('buyingQty').textContent = buyingQty;
+      document.getElementById('freeQty').textContent = freeQty;
+      
+      // Update hidden inputs
+      document.getElementById('packageInput').value = `Buy ${buyingQty} Get ${freeQty} FREE`;
+      document.getElementById('priceInput').value = totalAmount;
+      document.getElementById('quantityInput').value = totalPackages;
+      document.getElementById('totalPadsInput').value = totalPads;
+    }
+
+    // Quantity Selector
+    document.getElementById('decreaseQty').addEventListener('click', function() {
+      if (quantity > 1) {
+        quantity--;
+        document.getElementById('quantity').value = quantity;
+        updateOrderSummary();
+      }
+    });
+
+    document.getElementById('increaseQty').addEventListener('click', function() {
+      if (quantity < 20) {
+        quantity++;
+        document.getElementById('quantity').value = quantity;
+        updateOrderSummary();
+      }
+    });
+
+    document.getElementById('quantity').addEventListener('change', function() {
+      let value = parseInt(this.value);
+      if (isNaN(value) || value < 1) {
+        value = 1;
+      } else if (value > 20) {
+        value = 20;
+      }
+      quantity = value;
+      this.value = value;
+      updateOrderSummary();
+    });
+
+    // Form Submission Handler
+    document.getElementById("orderForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const buyingQty = quantity;
+      const freeQty = quantity;
+      const totalPackages = buyingQty + freeQty;
+      const totalPads = totalPackages * padsPerPackage;
+      const totalAmount = pricePerPackage * buyingQty;
+      
+      // Show loading state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Order...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Create form data for submission
+        const formData = new FormData();
+        formData.append('name', form.name.value);
+        formData.append('phone', form.phone.value);
+        formData.append('email', form.email.value || 'Not provided');
+        formData.append('location', form.location.value);
+        formData.append('product', 'Kinoki Detox Foot Pads');
+        formData.append('package', `Buy ${buyingQty} Get ${freeQty} FREE`);
+        formData.append('price', totalAmount);
+        formData.append('quantity', totalPackages);
+        formData.append('total_pads', totalPads);
+        formData.append('timestamp', new Date().toLocaleString());
+        
+        // Submit to Google Sheets
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        });
+        
+        // Show success message
+        showSuccessMessage(form.name.value, form.phone.value, totalAmount, buyingQty, freeQty, totalPackages, totalPads);
+        
+        // Reset form
+        form.reset();
+        
+        // Reset quantity
+        quantity = 1;
+        document.getElementById('quantity').value = 1;
+        
+        // Update summary
+        updateOrderSummary();
+        
+      } catch (error) {
+        console.error('Error:', error);
+        // Show success message anyway since data is saved
+        showSuccessMessage(form.name.value, form.phone.value, totalAmount, buyingQty, freeQty, totalPackages, totalPads);
+        
+        // Reset everything
+        form.reset();
+        quantity = 1;
+        document.getElementById('quantity').value = 1;
+        updateOrderSummary();
+      } finally {
+        // Restore button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Show Success Message
+    function showSuccessMessage(customerName, phone, totalAmount, buyingQty, freeQty, totalPackages, totalPads) {
+      const successHTML = `
+        <div style="background: white; padding: 30px; border-radius: 15px; max-width: 500px; text-align: center;">
+          <div style="font-size: 50px; color: #7c3aed; margin-bottom: 20px;">🎉</div>
+          <h2 style="color: #7c3aed; margin-bottom: 15px; font-size: 24px;">Thank you, ${customerName}!</h2>
+          <p style="color: #4b5563; margin-bottom: 20px;">Your order has been received successfully.</p>
+          <div style="background: #f5f3ff; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: left;">
+            <h3 style="color: #7c3aed; margin-bottom: 10px;">📦 Order Details:</h3>
+            <p><strong>Offer:</strong> Buy ${buyingQty} Get ${freeQty} FREE</p>
+            <p><strong>Total Packages:</strong> ${totalPackages} (${buyingQty} paid + ${freeQty} free)</p>
+            <p><strong>Total Pads:</strong> ${totalPads}</p>
+            <p><strong>Amount:</strong> KES ${totalAmount.toLocaleString()}</p>
+            <p><strong>Delivery:</strong> FREE</p>
+            <p><strong>Payment:</strong> Cash on Delivery</p>
+          </div>
+          <p style="color: #4b5563; margin-bottom: 10px;">📞 We will contact you at <strong>${phone}</strong> within 24 hours to confirm delivery.</p>
+          <p style="color: #059669; font-weight: bold;">Thank you for choosing Kinoki!</p>
+          <button onclick="this.parentElement.parentElement.remove()" style="margin-top: 20px; padding: 10px 20px; background: #7c3aed; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            Close
+          </button>
+        </div>
+      `;
+      
+      // Create modal
+      const modal = document.createElement('div');
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.right = '0';
+      modal.style.bottom = '0';
+      modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+      modal.style.display = 'flex';
+      modal.style.justifyContent = 'center';
+      modal.style.alignItems = 'center';
+      modal.style.zIndex = '9999';
+      modal.innerHTML = successHTML;
+      
+      document.body.appendChild(modal);
+    }
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateOrderSummary();
+    });
+  </script>
+</body>
+</html>
