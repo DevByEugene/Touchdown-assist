@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* All your existing CSS styles remain the same */
+    /* Fixed Background Image Animation for Mobile */
     @keyframes fadeBackground {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
@@ -20,10 +20,41 @@
       width: 100%;
       height: 100%;
       background-size: cover;
-      background-position: center;
+      background-position: center center;
       background-repeat: no-repeat;
       animation: fadeBackground 12s ease-in-out infinite;
       opacity: 0;
+      /* Mobile-first approach - always cover */
+      background-attachment: scroll;
+    }
+
+    /* Ensure images maintain aspect ratio on mobile */
+    @media (max-width: 768px) {
+      .bg-slider {
+        background-size: cover;
+        background-position: center center;
+        /* Disable parallax effect on mobile */
+        background-attachment: scroll;
+      }
+      
+      /* Adjust animation timing for mobile */
+      @keyframes fadeBackground {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+    }
+
+    /* For very small screens, ensure image is properly centered */
+    @media (max-width: 480px) {
+      .bg-slider {
+        background-position: center top;
+      }
+      
+      /* Hero section adjustments for mobile */
+      .hero-section {
+        min-height: 100vh;
+        height: auto;
+      }
     }
 
     .bg-slider:nth-child(1) { animation-delay: 0s; }
@@ -31,6 +62,7 @@
     .bg-slider:nth-child(3) { animation-delay: 8s; }
     .bg-slider:nth-child(4) { animation-delay: 12s; }
 
+    /* Rest of your existing CSS styles remain the same */
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-20px); }
@@ -228,7 +260,7 @@
       border: 2px solid #7c3aed;
     }
 
-    /* FIXED: WhatsApp button styles */
+    /* WhatsApp button styles */
     .whatsapp-float {
       position: fixed;
       bottom: 30px;
@@ -283,7 +315,7 @@
       transform: translateX(0);
     }
 
-    /* FIXED: Body and footer adjustments */
+    /* Body and footer adjustments */
     body {
       min-height: 100vh;
       display: flex;
@@ -297,7 +329,7 @@
     footer {
       flex-shrink: 0;
       width: 100%;
-      background: #4c1d95 !important; /* Darker purple for better coverage */
+      background: #4c1d95 !important;
       margin-top: auto;
     }
 
@@ -311,6 +343,21 @@
     .footer-content {
       max-width: 7xl;
       margin: 0 auto;
+    }
+
+    /* Mobile-specific adjustments for hero section */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding-top: 100px !important;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem !important;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.5rem !important;
+      }
     }
   </style>
 </head>
@@ -335,15 +382,32 @@
   </header>
 
 <main class="flex-grow">
-    <!-- Hero Section with Background Slider -->
-    <section class="relative min-h-screen flex items-center overflow-hidden pt-20">
-      <!-- Background Image Slider - Multiple Kinoki Images -->
+    <!-- Hero Section with Background Slider - ADDED hero-section class -->
+    <section class="hero-section relative min-h-screen flex items-center overflow-hidden pt-20">
+      <!-- Background Image Slider - FIXED for mobile responsiveness -->
       <div class="absolute inset-0 z-0">
-        <!-- YOUR Kinoki product images -->
-        <div class="bg-slider" style="background-image: url('WhatsApp Image 2025-12-27 at 14.17.58.jpeg'); background-position: center; background-size: cover;"></div>
-        <div class="bg-slider" style="background-image: url('image2.webp'); background-position: center; background-size: cover;"></div>
-        <div class="bg-slider" style="background-image: url('image 3.jpeg'); background-position: center; background-size: cover;"></div>
-        <div class="bg-slider" style="background-image: url('your-fourth-image.jpg'); background-position: center; background-size: cover;"></div>
+        <!-- Kinoki product images with optimized background properties -->
+        <div class="bg-slider" 
+             style="background-image: url('WhatsApp Image 2025-12-27 at 14.17.58.jpeg'); 
+                    background-position: center; 
+                    background-size: cover;
+                    background-repeat: no-repeat;"></div>
+        <div class="bg-slider" 
+             style="background-image: url('image2.webp'); 
+                    background-position: center; 
+                    background-size: cover;
+                    background-repeat: no-repeat;"></div>
+        <div class="bg-slider" 
+             style="background-image: url('image 3.jpeg'); 
+                    background-position: center; 
+                    background-size: cover;
+                    background-repeat: no-repeat;"></div>
+        <!-- Fallback/placeholder image -->
+        <div class="bg-slider" 
+             style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80'); 
+                    background-position: center; 
+                    background-size: cover;
+                    background-repeat: no-repeat;"></div>
         
         <!-- Lighter overlay to make text readable while showing images -->
         <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-black/30"></div>
@@ -368,12 +432,12 @@
             </span>
           </div>
           
-          <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+          <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
             <span class="text-yellow-300">Kinoki</span><br>
             <span class="text-4xl md:text-5xl lg:text-6xl">Detox Foot Pads</span>
           </h1>
           
-          <p class="text-2xl text-purple-100 mb-8 leading-relaxed">
+          <p class="hero-subtitle text-2xl text-purple-100 mb-8 leading-relaxed">
             <span class="text-yellow-300 font-bold">✨ Japanese-Inspired Natural Detoxification ✨</span>
           </p>
           
@@ -457,6 +521,7 @@
       </div>
     </section>
 
+    <!-- Rest of your HTML remains exactly the same -->
     <!-- Product Gallery Section -->
     <section id="gallery" class="py-20 bg-gradient-to-b from-purple-50 to-white">
       <div class="max-w-7xl mx-auto px-4">
@@ -1026,7 +1091,7 @@
     </div>
   </footer>
 
-  <!-- SINGLE JAVASCRIPT SECTION -->
+  <!-- JavaScript Section - UNCHANGED -->
   <script>
     // Configuration
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6qzWfC1ncgALr96Qm26SA7Z7nBni04Cnt-P5cCXOWqWpRuUp4qnJzMXGtYUexnxgJ/exec";
